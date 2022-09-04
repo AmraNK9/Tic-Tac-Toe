@@ -1,8 +1,9 @@
 const spaces = Array.from(document.querySelectorAll(".space"));
 const button = document.querySelector("button");
 const trun = document.querySelector("#trun");
+const overlay = document.querySelector(".winner-container");
 
-
+overlay.style.zIndex = "0"
 //function setup
 //0 3 6
 //1 4 7
@@ -26,10 +27,25 @@ const checkWinner = ()=>{
         if(spaces[winCondition[i][0]].innerHTML== "X" && spaces[winCondition[i][1]].innerHTML== "X" && spaces[winCondition[i][2]].innerHTML== "X"  ){
             console.log("X is Win");
             Xwin = true;
+            if(Xwin){
+                for (let r = 0; r<3;r++){
+                    spaces[winCondition[i][r]].style.backgroundColor = "Green";
+                    console.log(  spaces[winCondition[i][r]]);
+                }
+                
+                overlay.style.zIndex = "9";
+            }
         }
         else if(spaces[winCondition[i][0]].innerHTML== "O" && spaces[winCondition[i][1]].innerHTML== "O" && spaces[winCondition[i][2]].innerHTML== "O" ){
             console.log("O is Win");
             Owin = true;
+            if(Owin){
+                for (let r = 0; r<3;r++){
+                    spaces[winCondition[i][r]].style.backgroundColor = "Green";
+                    console.log(  spaces[winCondition[i][r]]);
+                }
+                overlay.style.zIndex = "9";
+            }
         }
     }
    
@@ -37,19 +53,21 @@ const checkWinner = ()=>{
 }
 
 let xTurn = true;
+let player2 = "Nay Myo Thant";
+let player1 = "Ning Sian Kim"
 
 const write = (e)=>{
 
     if(xTurn){
         e.target.innerHTML="X";
         xTurn = false;
-        trun.innerHTML = "This is Player2"
+        trun.innerHTML = `This is ${player2}`
 
     }
     else{
         e.target.innerHTML="O";
         xTurn = true;
-        trun.innerHTML = "This is Player1"
+        trun.innerHTML = `This is ${player1}`
     }
     checkWinner()
     
@@ -58,9 +76,14 @@ const write = (e)=>{
 const reset = ()=>{
     spaces.forEach(
         (value)=>{
-            value.innerHTML = " "
+            value.innerHTML = " ";
+             Xwin = false;
+             Owin = false;
+             value.style.backgroundColor = "red"
+
         }
     )
+    overlay.style.zIndex = "0"
 }
 
 spaces.forEach(

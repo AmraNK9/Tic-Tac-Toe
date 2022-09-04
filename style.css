@@ -12,10 +12,14 @@ body{
     width: fit-content;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 p{
- 
-    color: #d5d5d5;
+    text-shadow: 2px 2px 5px whitesmoke;
+    color:white;
+    font-family: 'Roboto', sans-serif;
+    
+    
  
 }
 .container2{
@@ -57,4 +61,22 @@ button{
     background-color: #121212;
     color: #c7c7c7;
     border-radius: 20%;
+    z-index: 12;
+
+}
+
+
+.winner-container{
+    position: absolute;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    background-color: black;
+    opacity:20%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    scroll-behavior: none;
+    z-index: 9;
 }
