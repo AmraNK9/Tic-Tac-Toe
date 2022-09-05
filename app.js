@@ -1,7 +1,10 @@
+
+
 const spaces = Array.from(document.querySelectorAll(".space"));
 const button = document.querySelector("button");
 const trun = document.querySelector("#trun");
 const overlay = document.querySelector(".winner-container");
+const winner = document.querySelector('#winner');
 
 overlay.style.zIndex = "0"
 //function setup
@@ -20,7 +23,7 @@ const winCondition = [
 ]
 let Xwin = false;
 let Owin = false;
-
+let checkEnd = [];
 const checkWinner = ()=>{
     for(let i=0;i<winCondition.length;i++){
 
@@ -34,6 +37,7 @@ const checkWinner = ()=>{
                 }
                 
                 overlay.style.zIndex = "9";
+                winner.innerHTML = `${player2} is Winner`;
             }
         }
         else if(spaces[winCondition[i][0]].innerHTML== "O" && spaces[winCondition[i][1]].innerHTML== "O" && spaces[winCondition[i][2]].innerHTML== "O" ){
@@ -45,31 +49,37 @@ const checkWinner = ()=>{
                     console.log(  spaces[winCondition[i][r]]);
                 }
                 overlay.style.zIndex = "9";
+                winner.innerHTML = `${player1} is Winner`;
             }
         }
     }
-   
+    if(checkEnd.length == 9){
+        winner.innerHTML = "The End";
+
+    }
     console.log("This Function is Running")
 }
 
 let xTurn = true;
-let player2 = "Nay Myo Thant";
-let player1 = "Ning Sian Kim"
-
+let player2 = localStorage.getItem("player1")||"Nay Myo Thant"
+let player1 =localStorage.getItem("player2")|| "Ning Sian Kim"
+trun.innerHTML = ` ${player1}`
 const write = (e)=>{
 
     if(xTurn){
         e.target.innerHTML="X";
         xTurn = false;
-        trun.innerHTML = `This is ${player2}`
+        trun.innerHTML = ` ${player2}`
 
     }
     else{
         e.target.innerHTML="O";
         xTurn = true;
-        trun.innerHTML = `This is ${player1}`
+        trun.innerHTML = ` ${player1}`
     }
-    checkWinner()
+    e.target.removeEventListener("click",write);
+    checkEnd.push("NN")
+    checkWinner();
     
 };
 
@@ -83,7 +93,13 @@ const reset = ()=>{
 
         }
     )
-    overlay.style.zIndex = "0"
+    overlay.style.zIndex = "0";
+    winner.innerHTML = "";
+    checkEnd = [];
+    spaces.forEach(
+        (space)=>{
+            space.addEventListener("click",write
+    )});
 }
 
 spaces.forEach(
@@ -91,4 +107,4 @@ spaces.forEach(
         space.addEventListener("click",write
 )});
 
-button.addEventListener("click",reset)
+button.addEventListener("click",reset);
